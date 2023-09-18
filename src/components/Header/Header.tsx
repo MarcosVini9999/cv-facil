@@ -6,7 +6,6 @@ import { AppRoutes } from "@/config/routes";
 import { UserContext } from "@/contexts/user";
 import login from "@/assets/icons/login.svg";
 import logout from "@/assets/icons/logout.svg";
-import "./styles.module.scss";
 
 interface HeaderProps {
   className?: string;
@@ -17,25 +16,51 @@ export function Header({ className, button }: HeaderProps) {
   const { user } = React.useContext(UserContext);
 
   return (
-    <header class-name={`${className}`}>
-      <div>
-        <div>
-          <img class-name="logo" src={fileTextRed} alt="Arquivo de texto vermelho" />
-          <h1>CV Fácil</h1>
+    <header
+      className={`${className} flex items-center justify-between	w-full h-20 bg-slate-50 shadow-md	px-14`}
+    >
+      <div className="flex items-center">
+        <div className="flex items-center">
+          <img
+            className="w-10 h-10"
+            src={fileTextRed}
+            alt="Arquivo de texto vermelho"
+          />
+          <h1 className="text-slate-900	text-4xl font-bold ml-1.5">CV Fácil</h1>
         </div>
-        <nav>
-          <Link to={AppRoutes.home}>Início</Link>
+        <nav className="ml-16">
+          <Link
+            className="text-slate-800	text-2xl font-medium transition-all hover:text-rose-500"
+            to={AppRoutes.home}
+          >
+            Início
+          </Link>
         </nav>
       </div>
-      <div>
+      <div className="flex items-center">
         {button}
-        {user?.avatar ?
-          <div>
-            <img class-name="avatar" src="https://avatars.githubusercontent.com/u/73958393?v=4" alt="Avatar de usuário" />
-            <img class-name="logout" src={logout} alt="Ícone de logout" />
-          </div> :
-          <img class-name="login" src={login} alt="Ícone de login" />
-        }
+        {user?.avatar ? (
+          <div className="flex items-center">
+            <img
+              className="w-10 h-10 rounded-full mx-5 cursor-pointer"
+              src="https://avatars.githubusercontent.com/u/73958393?v=4"
+              alt="Avatar de usuário"
+            />
+            <img
+              className="w-8 h-8 cursor-pointer"
+              src={logout}
+              alt="Ícone de logout"
+              title="Log out"
+            />
+          </div>
+        ) : (
+          <img
+            className="w-8 h-8 ml-8 cursor-pointer"
+            src={login}
+            alt="Ícone de login"
+            title="Log in"
+          />
+        )}
       </div>
     </header>
   );

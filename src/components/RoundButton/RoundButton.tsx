@@ -1,5 +1,3 @@
-import "./styles.module.scss";
-
 interface RoundButtonProps {
   className?: string;
   children: React.ReactNode;
@@ -7,7 +5,9 @@ interface RoundButtonProps {
 
 export function RoundButton({ className, children }: RoundButtonProps) {
   return (
-    <button class-name={`${className}`}>
+    <button
+      className={`w-24 h-8 rounded-full bg-rose-500 text-white text-xl transition-all duration-200 hover:shadow-md	${className}`}
+    >
       {children}
     </button>
   );
