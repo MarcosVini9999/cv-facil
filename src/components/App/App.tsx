@@ -1,7 +1,10 @@
-import { Router } from '@/components';
+import { Router } from "@/components";
+import { UserProvider } from "@/contexts/user";
 
 export function App() {
   return (
-    <Router />
-  )
+    <UserProvider>
+      <Router />
+    </UserProvider>
+  );
 }
