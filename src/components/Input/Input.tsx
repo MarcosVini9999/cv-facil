@@ -9,11 +9,11 @@ interface InputProps {
 export function Input({ className, label, type, value, onChange }: InputProps) {
   return (
     <label
-      className={`${className} flex flex-col text-slate-900 text-xl cursor-pointer capitalize`}
+      className={`${className} flex flex-col text-slate-900 text-base cursor-pointer capitalize`}
     >
       {label}
       <input
-        className="w-full h-10 rounded px-2.5	bg-slate-200 "
+        className="w-full h-10 rounded px-2.5	bg-slate-200"
         type={type ? type : "text"}
         value={value}
         onChange={e => onChange(e.target.value)}
