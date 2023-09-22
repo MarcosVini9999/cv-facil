@@ -3,8 +3,9 @@ interface InputProps {
   label: string;
   type?: string;
   rows?: number;
-  value: string;
-  onChange: (value: string) => void;
+  value: any;
+  onChange: (value: any) => void;
+  required?: boolean;
 }
 
 export function Input({
@@ -14,6 +15,7 @@ export function Input({
   rows,
   value,
   onChange,
+  required = false,
 }: InputProps) {
   return (
     <label
@@ -26,7 +28,7 @@ export function Input({
           rows={rows}
           value={value}
           onChange={e => onChange(e.target.value)}
-          required
+          required={required}
         ></textarea>
       ) : (
         <input
@@ -34,7 +36,7 @@ export function Input({
           type={type ? type : "text"}
           value={value}
           onChange={e => onChange(e.target.value)}
-          required
+          required={required}
         />
       )}
     </label>
