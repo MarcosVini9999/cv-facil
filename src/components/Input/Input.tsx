@@ -17,14 +17,16 @@ export function Input({
   onChange,
   required = false,
 }: InputProps) {
+  const style = "font-normal rounded p-2.5 bg-slate-200";
+
   return (
     <label
       className={`${className} flex flex-col font-medium text-slate-900 text-base cursor-pointer capitalize`}
     >
       {label}
-      {rows ? (
+      {rows && rows > 1 ? (
         <textarea
-          className="w-full font-normal min-h-24 rounded p-2.5 bg-slate-200"
+          className={`${style} w-full`}
           rows={rows}
           value={value}
           onChange={e => onChange(e.target.value)}
@@ -32,7 +34,7 @@ export function Input({
         ></textarea>
       ) : (
         <input
-          className="w-full h-10 font-normal rounded px-2.5	bg-slate-200"
+          className={`${style} h-10 w-full`}
           type={type ? type : "text"}
           value={value}
           onChange={e => onChange(e.target.value)}
