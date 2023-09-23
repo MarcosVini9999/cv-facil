@@ -1,29 +1,26 @@
-import { Header, RoundButton } from "@/components";
 import ReactToPrint from "react-to-print";
+
+import { Header, RoundButton } from "@/components";
 import PrinterIcon from "@/assets/icons/printer.svg";
-import React from "react";
 
 export function Preview() {
-  const [visibility, setVisibility] = React.useState(true);
-
   const handlePrint = () => {
-    setVisibility(false);
     const printCV = document.getElementById("cv");
     if (printCV) {
       const cvPrint: any = window.open();
       cvPrint.document.write(printCV.innerHTML);
       cvPrint.document.close();
-
       cvPrint.print();
     }
   };
+
   return (
-    <div className="bg-[#E5E5E5]">
+    <div className="bg-[#E5E5E5] flex flex-col">
       <Header />
-      <div className="flex justify-center mt-[40px]">
+      <div className="flex justify-center self-center items-center mt-[40px] relative">
         <div
           id="cv"
-          className="bg-[#F9F9F9] flex flex-col rounded-[5px] w-[923px] pt-[42px] pl-[38px]  mb-[38px] "
+          className="bg-[#F9F9F9] rounded-[5px] w-[923px] pt-[42px] pl-[38px] mb-[38px]"
         >
           <h1 className="flex text-[32px] font-bold basis-full ">
             Nome completo do usuário
@@ -90,7 +87,7 @@ export function Preview() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col mb-[38px]">
             <span className="text-[20px] font-medium mt-[16px] mb-[12px]">
               CERTIFICAÇÕES
             </span>
@@ -104,21 +101,23 @@ export function Preview() {
               <span className="font-bold">Título,</span> Ano
             </span>
           </div>
-          <div className="flex justify-end mr-[13px] mb-[22px]">
-            <ReactToPrint
-              trigger={() => (
-                <RoundButton
-                  onClick={handlePrint}
-                  className={`${
-                    visibility ? "" : "invisible"
-                  } w-[50px] h-[50px] flex justify-center items-center`}
-                >
-                  <img src={PrinterIcon} />
-                </RoundButton>
-              )}
-              content={() => document.getElementById("cv")}
-            />
-          </div>
+        </div>
+        <div className="flex justify-end mr-[13px] mb-[22px] absolute bottom-10 right-0">
+          <ReactToPrint
+            trigger={() => (
+              <RoundButton
+                onClick={handlePrint}
+                className="w-[50px] h-[50px] flex justify-center items-center"
+              >
+                <img src={PrinterIcon} />
+              </RoundButton>
+            )}
+            content={() => document.getElementById("cv")}
+            pageStyle="@page {
+              size: A4;
+              margin: 10px;
+            }"
+          />
         </div>
       </div>
     </div>
