@@ -44,5 +44,5 @@ export interface CompetencyProps {
 export interface CertificationProps {
   id: string;
   title: string;
-  year: number;
+  year: string;
 }

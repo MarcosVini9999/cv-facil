@@ -22,6 +22,9 @@ interface CreateProviderProps extends CVProps {
   addCompetency: (comp: CompetencyProps) => void;
   rmvCompetency: (id: string) => void;
   editCompetency: (comp: CompetencyProps) => void;
+  addCertification: (cert: CertificationProps) => void;
+  rmvCertification: (id: string) => void;
+  editCertification: (cert: CertificationProps) => void;
 }
 
 export const CreateContext = React.createContext({} as CreateProviderProps);
@@ -76,6 +79,24 @@ export function CreateProvider({ children }: { children: React.ReactNode }) {
     });
     setCompetencies(list);
   }
+  function addCertification(cert: CertificationProps) {
+    const list = [...certifications];
+    list.push(cert);
+    setCertifications(list);
+  }
+  function rmvCertification(id: string) {
+    const list = certifications.filter(cert => cert.id !== id);
+    setCertifications(list);
+  }
+  function editCertification(cert: CertificationProps) {
+    const list = certifications.map(c => {
+      if (c.id === cert.id) {
+        return cert;
+      }
+      return c;
+    });
+    setCertifications(list);
+  }
 
   return (
     <CreateContext.Provider
@@ -103,6 +124,9 @@ export function CreateProvider({ children }: { children: React.ReactNode }) {
         rmvCompetency,
         editCompetency,
         certifications,
+        addCertification,
+        rmvCertification,
+        editCertification,
       }}
     >
       {children}

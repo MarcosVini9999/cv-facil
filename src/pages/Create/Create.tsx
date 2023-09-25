@@ -9,6 +9,7 @@ import {
   Line,
   ProfExpView,
   CompetenciesView,
+  CertificationsView,
 } from "./components";
 import { CreateContext } from "@/contexts/create";
 import { maskPhone } from "@/config/masks/phone";
@@ -34,6 +35,8 @@ export function Create() {
     addProfExp,
     competencies,
     addCompetency,
+    certifications,
+    addCertification,
   } = React.useContext(CreateContext);
 
   function resetInputs() {
@@ -139,11 +142,21 @@ export function Create() {
         />
 
         <Line />
-        {/* 
         <SectionTitle>Certificações</SectionTitle>
-        <CertificationsForm />
-        <Line /> */}
+        {certifications.map(cert => (
+          <CertificationsView
+            key={cert.id}
+            id={cert.id}
+            title={cert.title}
+            year={cert.year}
+          />
+        ))}
+        <CertificationsForm
+          actionLabel="Adicionar Certificação"
+          actionFunction={addCertification}
+        />
 
+        <Line />
         <div className="self-center flex gap-5">
           <RoundButton type="submit">Finalizar Currículo</RoundButton>
           <RoundButton type="reset" onClick={resetInputs}>

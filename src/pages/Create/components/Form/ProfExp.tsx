@@ -3,8 +3,8 @@ import uuid from "react-uuid";
 
 import { Input, RoundButton } from "@/components";
 import { ProfExpProps } from "@/config/interfaces";
-import { numeberOnly } from "@/config/masks/numberOnly";
 import { MonthInput } from "..";
+import { handleYearValidation } from "@/utils/validateYear";
 
 interface ProfExpFormProps {
   id?: string;
@@ -86,16 +86,7 @@ export function ProfExpForm({
     setEndMonth("janeiro");
     setEndYear("");
     setDescription("");
-  }
-
-  function handleYearValidation(
-    event: React.ChangeEvent<HTMLInputElement>,
-    setState: (value: string) => void,
-  ) {
-    const value = event.target.value;
-    if (value.length > 4) return;
-    setState(numeberOnly(value));
-  }
+  }  
 
   return (
     <section className="flex flex-col gap-y-3.5">

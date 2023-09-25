@@ -19,6 +19,10 @@ export function CompetenciesForm({
   const [competencyState, setCompetency] = React.useState(competency);
 
   function onButtonClick() {
+    if (!competencyState) {
+      alert("Preencha a competência");
+      return;
+    }
     const comp = {
       id: id ? id : uuid(),
       title: competencyState,

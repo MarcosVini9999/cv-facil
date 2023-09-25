@@ -1,36 +1,39 @@
 import React from "react";
 
-import { CompetenciesForm, IconButton } from "..";
-import { CompetencyProps } from "@/config/interfaces";
+import { CertificationsForm, IconButton } from "..";
+import { CertificationProps } from "@/config/interfaces";
 import { CreateContext } from "@/contexts/create";
 import trash from "@/assets/icons/trash.svg";
 import edit from "@/assets/icons/edit.svg";
 
 interface CompetenciesFormProps {
   id: string;
-  competency: string;
+  title: string;
+  year: string;
 }
 
-export function CompetenciesView({ id, competency }: CompetenciesFormProps) {
+export function CertificationsView({ id, title, year }: CompetenciesFormProps) {
   const [editMode, setEditMode] = React.useState(false);
-  const { rmvCompetency, editCompetency } = React.useContext(CreateContext);
+  const { rmvCertification, editCertification } =
+    React.useContext(CreateContext);
 
   function handleDelete() {
-    if (confirm("Tem certeza que deseja excluír a competência?")) {
-      rmvCompetency(id);
+    if (confirm("Tem certeza que deseja excluír a certificação?")) {
+      rmvCertification(id);
     }
   }
-  function handleEdit(comp: CompetencyProps) {
+  function handleEdit(cert: CertificationProps) {
     setEditMode(false);
-    editCompetency(comp);
+    editCertification(cert);
   }
 
   return (
     <>
       {editMode ? (
-        <CompetenciesForm
+        <CertificationsForm
           id={id}
-          competency={competency}
+          title={title}
+          year={year}
           actionLabel="Salvar"
           actionFunction={handleEdit}
         />
@@ -50,8 +53,9 @@ export function CompetenciesView({ id, competency }: CompetenciesFormProps) {
               onClick={handleDelete}
             />
           </div>
+          <p className="text-xl font-normal text-slate-800">{year}</p>
           <p className="text-xl font-normal text-slate-800 capitalize">
-            {competency}
+            {title}
           </p>
         </div>
       )}
