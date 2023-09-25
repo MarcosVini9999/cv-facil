@@ -23,9 +23,9 @@ export function Preview() {
       <div className="flex justify-center mt-[40px]">
         <div
           id="cv"
-          className="bg-[#F9F9F9] flex flex-col rounded-[5px] w-[923px] pt-[42px] pl-[38px]  mb-[38px] "
+          className="bg-[#F9F9F9] flex flex-col rounded-[5px] w-[75%] pt-[42px] pl-[38px] mb-[38px] "
         >
-          <h1 className="flex text-[32px] font-bold basis-full ">
+          <h1 className="flex text-[32px] font-bold basis-full justify-center">
             Nome completo do usuário
           </h1>
           <div className="flex flex-col text-[16px] font-normal">
@@ -39,7 +39,7 @@ export function Preview() {
             <span className="text-[20px] font-medium mt-[12px] mb-[7px]">
               RESUMO PROFISSIONAL
             </span>
-            <span className="w-[789px]">
+            <span className="w-[90%]">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
               id velit sed lorem interdum bibendum ut quis libero. Proin
               scelerisque nisi ut quam egestas venenatis. Aliquam erat volutpat.
@@ -56,16 +56,16 @@ export function Preview() {
               Mês ano - Mês ano <span className="font-bold">Título</span>,
               Cidade, Estado.{" "}
             </span>
-            <span className="w-[819px]">
+            <span className="w-[73%]">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
               id velit sed lorem interdum bibendum ut quis libero. Proin
               scelerisque nisi ut quam egestas venenatis. Aliquam erat volutpat.{" "}
             </span>
-            <span className="mt-[10px]">
+            <span className="w-[73%] mt-[10px]">
               Mês ano - Mês ano <span className="font-bold">Título</span>,
               Cidade, Estado.{" "}
             </span>
-            <span className="w-[819px]">
+            <span className="w-[73%]">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
               id velit sed lorem interdum bibendum ut quis libero. Proin
               scelerisque nisi ut quam egestas venenatis. Aliquam erat volutpat.{" "}
@@ -76,7 +76,7 @@ export function Preview() {
               COMPETÊNCIAS
             </span>
             <div className="flex flex-row">
-              <div className="flex flex-col mr-[473px]">
+              <div className="flex flex-col mr-[50%]">
                 <span>Tecnologia A</span>
                 <span>Tecnologia B</span>
                 <span>Tecnologia C</span>
