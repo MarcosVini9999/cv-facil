@@ -39,8 +39,10 @@ export function MonthInput({
         value={value}
         required={required}
       >
-        {months.map(month => (
-          <option value={month}>{month}</option>
+        {months.map((month, index) => (
+          <option key={index} value={month}>
+            {month}
+          </option>
         ))}
       </select>
     </label>

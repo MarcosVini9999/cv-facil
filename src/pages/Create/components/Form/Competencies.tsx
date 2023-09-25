@@ -1,26 +1,41 @@
 import React from "react";
+import uuid from "react-uuid";
 
 import { Input, RoundButton } from "@/components";
-import { CreateContext } from "@/contexts/create";
 
-export function CompetenciesForm() {
-  const [competency, setCompetency] = React.useState("");
-  //const { addCompetency } = React.useContext(CreateContext);
+interface CompetenciesFormProps {
+  id?: string;
+  competency?: string;
+  actionLabel: string;
+  actionFunction: (args?: any) => void;
+}
 
-  function onAddButtonClick() {
+export function CompetenciesForm({
+  id = "",
+  competency = "",
+  actionFunction,
+  actionLabel,
+}: CompetenciesFormProps) {
+  const [competencyState, setCompetency] = React.useState(competency);
+
+  function onButtonClick() {
     const comp = {
-      id: React.useId(),
-      title: competency,
+      id: id ? id : uuid(),
+      title: competencyState,
     };
-    //addCompetency(comp);
+    actionFunction(comp);
     setCompetency("");
   }
 
   return (
     <section className="flex flex-col gap-y-3.5">
-      <Input label="Competência" value={competency} onChange={setCompetency} />
-      <RoundButton className="self-center" onClick={onAddButtonClick}>
-        Adicionar Competência
+      <Input
+        label="Competência"
+        value={competencyState}
+        onChange={e => setCompetency(e.target.value)}
+      />
+      <RoundButton className="self-center" onClick={onButtonClick}>
+        {actionLabel}
       </RoundButton>
     </section>
   );

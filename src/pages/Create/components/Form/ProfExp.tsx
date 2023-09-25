@@ -58,7 +58,7 @@ export function ProfExpForm({
       alert("Dado(s) faltando, preenche todo o formulário.");
       return;
     }
-    if (startYear.length < 4 || endYear.length < 4) {
+    if (startYearState.length < 4 || endYearState.length < 4) {
       alert("Formato de ano inválido");
       return;
     }
@@ -69,11 +69,11 @@ export function ProfExpForm({
       state: stateState,
       start: {
         month: startMonthState,
-        year: +startYearState,
+        year: startYearState,
       },
       end: {
         month: endMonthState,
-        year: +endYearState,
+        year: endYearState,
       },
       description: descriptionState,
     };

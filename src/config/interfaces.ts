@@ -27,11 +27,11 @@ export interface ProfExpProps {
   state: string;
   start: {
     month: string;
-    year: number;
+    year: string;
   };
   end: {
     month: string;
-    year: number;
+    year: string;
   };
   description: string;
 }

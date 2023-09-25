@@ -8,6 +8,7 @@ import {
   SectionTitle,
   Line,
   ProfExpView,
+  CompetenciesView,
 } from "./components";
 import { CreateContext } from "@/contexts/create";
 import { maskPhone } from "@/config/masks/phone";
@@ -31,6 +32,8 @@ export function Create() {
     setResume,
     profExp,
     addProfExp,
+    competencies,
+    addCompetency,
   } = React.useContext(CreateContext);
 
   function resetInputs() {
@@ -122,11 +125,21 @@ export function Create() {
         />
 
         <Line />
-        {/* 
         <SectionTitle>Competências</SectionTitle>
-        <CompetenciesForm />
+        {competencies.map(comp => (
+          <CompetenciesView
+            key={comp.id}
+            id={comp.id}
+            competency={comp.title}
+          />
+        ))}
+        <CompetenciesForm
+          actionLabel={"Adicionar Competência"}
+          actionFunction={addCompetency}
+        />
 
         <Line />
+        {/* 
         <SectionTitle>Certificações</SectionTitle>
         <CertificationsForm />
         <Line /> */}

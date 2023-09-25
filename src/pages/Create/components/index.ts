@@ -1,6 +1,7 @@
 export { ProfExpForm } from "./Form/ProfExp";
 export { ProfExpView } from "./View/ProfExp";
 export { CompetenciesForm } from "./Form/Competencies";
+export { CompetenciesView } from "./View/Competencies";
 export { CertificationsForm } from "./Form/Certifications";
 export { IconButton } from "./IconButton";
 export { MonthInput } from "./MonthInput";

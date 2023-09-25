@@ -2,17 +2,17 @@ import React from "react";
 
 import { IconButton, ProfExpForm } from "..";
 import { CreateContext } from "@/contexts/create";
+import { ProfExpProps } from "@/config/interfaces";
 import trash from "@/assets/icons/trash.svg";
 import edit from "@/assets/icons/edit.svg";
-import { ProfExpProps } from "@/config/interfaces";
 
 interface ProfExpViewProps {
   id: string;
   title: string;
   startMonth: string;
-  startYear: number;
+  startYear: string;
   endMonth: string;
-  endYear: number;
+  endYear: string;
   description: string;
   city: string;
   state: string;
