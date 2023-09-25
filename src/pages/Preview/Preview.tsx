@@ -20,7 +20,7 @@ export function Preview() {
       <div className="flex justify-center self-center items-center mt-[40px] relative">
         <div
           id="cv"
-          className="bg-[#F9F9F9] flex flex-col rounded-[5px] w-[923px] pt-[42px] pl-[38px]  mb-[38px] "
+          className="bg-[#F9F9F9] flex flex-col rounded-[5px] w-[70%] pt-[42px] pl-[38px]  mb-[38px] "
         >
           <h1 className="flex text-[32px] font-bold basis-full justify-center">
             Nome completo do usuário
