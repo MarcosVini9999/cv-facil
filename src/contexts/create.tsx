@@ -16,7 +16,9 @@ interface CreateProviderProps extends CVProps {
   setGithub: (value: string) => void;
   setResume: (value: string) => void;
   profExp: ProfExpProps[];
-  setProfExp: (value: ProfExpProps[]) => void;
+  addProfExp: (exp: ProfExpProps) => void;
+  rmvProfExp: (id: string) => void;
+  editProfExp: (exp: ProfExpProps) => void;
 }
 
 export const CreateContext = React.createContext({} as CreateProviderProps);
@@ -34,6 +36,25 @@ export function CreateProvider({ children }: { children: React.ReactNode }) {
   const [certifications, setCertifications] = React.useState<
     CertificationProps[]
   >([]);
+
+  function addProfExp(exp: ProfExpProps) {
+    const list = [...profExp];
+    list.push(exp);
+    setProfExp(list);
+  }
+  function rmvProfExp(id: string) {
+    const list = profExp.filter(exp => exp.id !== id);
+    setProfExp(list);
+  }
+  function editProfExp(exp: ProfExpProps) {
+    const list = profExp.map(e => {
+      if (e.id === exp.id) {
+        return exp;
+      }
+      return e;
+    });
+    setProfExp(list);
+  }
 
   return (
     <CreateContext.Provider
@@ -53,7 +74,9 @@ export function CreateProvider({ children }: { children: React.ReactNode }) {
         resume,
         setResume,
         profExp,
-        setProfExp,
+        addProfExp,
+        rmvProfExp,
+        editProfExp,
         competencies,
         certifications,
       }}

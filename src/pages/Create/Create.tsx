@@ -10,6 +10,8 @@ import {
   ProfExpView,
 } from "./components";
 import { CreateContext } from "@/contexts/create";
+import { maskPhone } from "@/config/masks/phone";
+import { textOnly } from "@/config/masks/textOnly";
 
 export function Create() {
   const {
@@ -27,28 +29,50 @@ export function Create() {
     setGithub,
     resume,
     setResume,
+    profExp,
+    addProfExp,
   } = React.useContext(CreateContext);
+
+  function resetInputs() {
+    setName("");
+    setJob("");
+    setEmail("");
+    setPhone("");
+    setLinkedin("");
+    setGithub("");
+    setResume("");
+  }
 
   return (
     <div className="bg-slate-200 pb-1">
       <Header />
       <form className="bg-slate-50 my-11 md:mx-10 lg:mx-48 p-11 lg:px-40 shadow-lg rounded flex flex-col gap-y-3.5">
-        <Input label="Nome completo" value={name} onChange={setName} required />
-        <Input label="Título do cargo" value={job} onChange={setJob} required />
+        <Input
+          label="Nome completo"
+          value={name}
+          onChange={e => setName(textOnly(e.target.value))}
+          required
+        />
+        <Input
+          label="Título do cargo"
+          value={job}
+          onChange={e => setJob(e.target.value)}
+          required
+        />
         <div className="flex gap-5">
           <Input
             className="w-full"
             label="Email"
             type="email"
             value={email}
-            onChange={setEmail}
+            onChange={e => setEmail(e.target.value)}
             required
           />
           <Input
             className="w-full"
             label="Celular"
             value={phone}
-            onChange={setPhone}
+            onChange={e => setPhone(maskPhone(e.target.value))}
             required
           />
         </div>
@@ -57,14 +81,14 @@ export function Create() {
             className="w-full"
             label="Linkedin"
             value={linkedin}
-            onChange={setLinkedin}
+            onChange={e => setLinkedin(e.target.value)}
             required
           />
           <Input
             className="w-full"
             label="Github"
             value={github}
-            onChange={setGithub}
+            onChange={e => setGithub(e.target.value)}
             required
           />
         </div>
@@ -72,15 +96,33 @@ export function Create() {
           label="Resumo Profissional"
           rows={5}
           value={resume}
-          onChange={setResume}
+          onChange={e => setResume(e.target.value)}
           required
         />
 
-        {/* <Line />
+        <Line />
         <SectionTitle>Experiências Profissionais</SectionTitle>
-        <ProfExpForm />
+        {profExp.map(exp => (
+          <ProfExpView
+            key={exp.id}
+            id={exp.id}
+            title={exp.title}
+            startMonth={exp.start.month}
+            startYear={exp.start.year}
+            endMonth={exp.end.month}
+            endYear={exp.end.year}
+            description={exp.description}
+            city={exp.city}
+            state={exp.state}
+          />
+        ))}
+        <ProfExpForm
+          actionLabel={"Adicionar Experiência"}
+          actionFunction={addProfExp}
+        />
 
         <Line />
+        {/* 
         <SectionTitle>Competências</SectionTitle>
         <CompetenciesForm />
 
@@ -91,7 +133,9 @@ export function Create() {
 
         <div className="self-center flex gap-5">
           <RoundButton type="submit">Finalizar Currículo</RoundButton>
-          <RoundButton type="reset">Limpar</RoundButton>
+          <RoundButton type="reset" onClick={resetInputs}>
+            Limpar
+          </RoundButton>
         </div>
       </form>
     </div>

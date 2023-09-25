@@ -3,5 +3,6 @@ export { ProfExpView } from "./View/ProfExp";
 export { CompetenciesForm } from "./Form/Competencies";
 export { CertificationsForm } from "./Form/Certifications";
 export { IconButton } from "./IconButton";
+export { MonthInput } from "./MonthInput";
 export { SectionTitle } from "./SectionTitle";
 export { Line } from "./Line";

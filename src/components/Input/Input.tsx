@@ -29,7 +29,7 @@ export function Input({
           className={`${style} w-full`}
           rows={rows}
           value={value}
-          onChange={e => onChange(e.target.value)}
+          onChange={onChange}
           required={required}
         ></textarea>
       ) : (
@@ -37,7 +37,7 @@ export function Input({
           className={`${style} h-10 w-full`}
           type={type ? type : "text"}
           value={value}
-          onChange={e => onChange(e.target.value)}
+          onChange={onChange}
           required={required}
         />
       )}
