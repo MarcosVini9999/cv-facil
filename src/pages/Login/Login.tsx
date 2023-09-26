@@ -1,5 +1,6 @@
 import iconCV from "@/assets/icons/file-textWhite.svg";
-import { Input, RoundButton } from "@/components";
+import { RoundButton } from "@/components";
+import iconView from "@/assets/icons/view.png";
 import React from "react";
 
 export function Login() {
@@ -8,6 +9,7 @@ export function Login() {
     password: "",
   });
   const [validEmail, setValidEmail] = React.useState(true);
+  const [seePassword, setSeePassword] = React.useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -22,10 +24,14 @@ export function Login() {
     setLogin((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  const SeePasswordButtonClick = () => {
+    setSeePassword(!seePassword);
+  };
+
   return (
     <div className="flex flex-row h-screen ">
       <div className="flex flex-col bg-[#FB4E4E] text-[#F7F7F7] w-[422px] items-center h-full ">
-        <div className="flex gap-x-16 pl-6 pr-6 mt-8 items-center ">
+        <div className="flex gap-x-16 pl-6 pr-6 mt-8 items-center mr-[12px] ml-[12px]">
           <a className="text-[2x'6px] font-bold flex flex-row items-center">
             <img src={iconCV} />
             CV-facil
@@ -33,7 +39,9 @@ export function Login() {
           <a className="text-[14px] font-medium cursor-pointer">Início</a>
         </div>
         <div className="flex flex-col items-center justify-center mt-48 gap-y-[30px]">
-          <span className="text-[30px] font-bold ">Que bom que voltou!</span>
+          <span className="text-[30px] font-bold  text-center">
+            Que bom que voltou!
+          </span>
           <span className=" flex font-bold w-[205px] text-[15px] text-center">
             Entre na sua conta e veja seus currículos, ou crie um novo
           </span>
@@ -42,7 +50,7 @@ export function Login() {
           </a>
         </div>
       </div>
-      <div className="bg-[#FFF] w-screen flex flex-col items-center justify-center">
+      <div className="bg-[#FFF] w-screen flex flex-col items-center justify-center ml-[12px] mr-[12px]">
         <span className="text-[35px] font-medium mb-[34px]">
           Entre em sua conta
         </span>
@@ -59,15 +67,22 @@ export function Login() {
             name="email"
           />
           <label className="text-[20px] font-normal">Senha</label>
-          <input
-            className="bg-[#E5E5E5] w-[300px] h-[40px] p-2"
-            type="password"
-          />
+          <div className="flex flex-row items-center gap-x-2">
+            <input
+              className="bg-[#E5E5E5] w-[300px] h-[40px] p-2"
+              type={seePassword ? "text" : "password"}
+            />
+            <img
+              className="h-[24px] w-[24px]"
+              src={iconView}
+              onClick={SeePasswordButtonClick}
+            />
+          </div>
         </div>
-        <span className="mt-[37px] text-[16px] font-medium cursor-pointer">
-          Esqueceu a sua senha?
+        <span className="mt-[37px] text-[16px] font-normal opacity-80 cursor-pointer text-[#FB4E4ECC] underline italic">
+          Esqueceu sua senha?
         </span>
-        <RoundButton className="mt-[35px]">Entrar</RoundButton>
+        <RoundButton className="mt-[35px] w-[100px]">Entrar</RoundButton>
       </div>
     </div>
   );
