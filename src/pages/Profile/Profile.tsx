@@ -31,20 +31,24 @@ export function Profile() {
       <Header />
 
       <main className="max-w-[50.25rem] flex flex-col m-auto">
-        <section className="mx-[1rem] mt-[6rem] mb-[2.12rem] ">
+        <section className="mx-[1rem] mt-[6rem] mb-[2.12rem]">
           <h1 className="text-[1.5rem] not-italic font-normal">Currículos</h1>
-          <div className="rounded-[0.625rem] bg-[#F0F0F0] shadow-5540 pt-[1rem] pb-[0.94rem] px-[2.19rem]">
-            <h2 className="text-center text-[1rem] not-italic font-normal">Currículos criados.</h2>
-            <IconButton icon={fileText} description="1" />
-            <IconButton icon={fileText} description="2" />
-            <IconButton icon={fileText} description="3" />
+          <div className="h-[8.5625rem] rounded-[0.625rem] bg-[#F0F0F0] shadow-5540 pt-[1rem] pb-[0.94rem] px-[2.19rem]">
+            <h2 className="text-center text-[1rem] not-italic font-normal text-opacity-70">
+              Currículos criados.
+            </h2>
+            <div className="flex gap-5">
+              <IconButton icon={fileText} description="1" />
+              <IconButton icon={fileText} description="2" />
+              <IconButton icon={fileText} description="3" />
+            </div>
           </div>
         </section>
 
         <section className="mx-[1rem] mb-[2.12rem]">
           <h1 className="text-[1.5rem] not-italic font-normal">Perfil</h1>
           <div className="flex flex-col items-center py-[1rem] rounded-[0.625rem] bg-[#F0F0F0] shadow-5540">
-            <h2 className="text-center text-[1rem] not-italic font-normal mb-[0.87rem]">
+            <h2 className="text-center text-[1rem] not-italic font-normal mb-[0.87rem] text-opacity-70">
               Informaçães do usuário.
             </h2>
             <div className="flex flex-row items-center gap-[1.25rem] mb-[0.5rem]">
@@ -76,7 +80,7 @@ export function Profile() {
         <section className="mx-[1rem] mb-[4rem]">
           <h1 className="text-[1.5rem] not-italic font-normal">Área de Perigo</h1>
           <div className="rounded-[0.625rem] bg-[#F0F0F0] shadow-5540 pt-[1rem] pb-[1.44rem]">
-            <h2 className="text-center text-[1rem] not-italic font-normal">
+            <h2 className="text-center text-[1rem] not-italic font-normal text-opacity-70 mb-[1.5rem]">
               Cuidado, as ações aqui não podem ser desfeitas.
             </h2>
             <div className="flex flex-col items-center gap-[1.19rem]">
