@@ -37,6 +37,10 @@ export function CompetenciesForm({
         label="Competência"
         value={competencyState}
         onChange={e => setCompetency(e.target.value)}
+        minlength={1}
+        maxlength={20}
+        placeholder="Ex.: Scrum"
+        required
       />
       <RoundButton className="self-center" onClick={onButtonClick}>
         {actionLabel}

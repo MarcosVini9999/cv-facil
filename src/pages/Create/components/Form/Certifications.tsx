@@ -27,8 +27,13 @@ export function CertificationsForm({
       alert("Preencha todos os campos da certificação");
       return;
     }
-    if (yearState.length < 4) {
-      alert("Formato de ano inválido");
+    const year = new Date().getFullYear();
+    if (yearState.length != 4) {
+      alert("Formato de ano inválido, formato: yyyy");
+      return;
+    } else if (+yearState < 1970 || +yearState > year) {
+      alert(`O intervalo do ano deve ser entre 1970 e ${year}`);
+      return;
     }
     const certification = {
       id: id ? id : uuid(),
@@ -40,6 +45,11 @@ export function CertificationsForm({
     setYear("");
   }
 
+  function onYearInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target;
+    handleYearValidation(value, setYear);
+  }
+
   return (
     <section className="flex flex-col gap-y-3.5">
       <div className="flex gap-6">
@@ -48,12 +58,21 @@ export function CertificationsForm({
           label="Título"
           value={titleState}
           onChange={e => setTitle(e.target.value)}
+          placeholder="Ex.: Curso de React alura..."
+          minlength={5}
+          maxlength={120}
+          required
         />
         <Input
-          className="w-16"
+          className="w-22"
+          type="number"
           label="Ano"
           value={yearState}
-          onChange={e => handleYearValidation(e, setYear)}
+          onChange={onYearInputChange}
+          placeholder="yyyy"
+          min={1970}
+          max={new Date().getFullYear()}
+          required
         />
       </div>
       <RoundButton className="self-center" onClick={onButtonClick}>

@@ -57,21 +57,29 @@ export function Create() {
           label="Nome completo"
           value={name}
           onChange={e => setName(textOnly(e.target.value))}
+          placeholder="Ex.: José da Silva"
+          minlength={1}
+          maxlength={70}
           required
         />
         <Input
           label="Título do cargo"
           value={job}
           onChange={e => setJob(e.target.value)}
+          placeholder="Ex.: Desenvolvedor Front-end"
+          minlength={1}
+          maxlength={50}
           required
         />
         <div className="flex gap-5">
           <Input
-            className="w-full"
-            label="Email"
+            className="w-full normal-case"
+            label="E-mail"
             type="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
+            pattern="[a-z0-9.]+@[a-z0-9]+\.[a-z]+"
+            placeholder="Ex.: name@domain.com"
             required
           />
           <Input
@@ -79,6 +87,8 @@ export function Create() {
             label="Celular"
             value={phone}
             onChange={e => setPhone(maskPhone(e.target.value))}
+            placeholder="Ex.: (xx) x xxxx-xxxx"
+            pattern="\([0-9]{2}\) [0-9]{1} [0-9]{4}-[0-9]{4}"
             required
           />
         </div>
@@ -88,6 +98,9 @@ export function Create() {
             label="Linkedin"
             value={linkedin}
             onChange={e => setLinkedin(e.target.value)}
+            placeholder="https://www.linkedin.com/in/username"
+            minlength={29}
+            maxlength={50}
             required
           />
           <Input
@@ -95,6 +108,9 @@ export function Create() {
             label="Github"
             value={github}
             onChange={e => setGithub(e.target.value)}
+            placeholder="Ex.: https://github.com/username"
+            minlength={20}
+            maxlength={40}
             required
           />
         </div>
@@ -103,6 +119,9 @@ export function Create() {
           rows={5}
           value={resume}
           onChange={e => setResume(e.target.value)}
+          placeholder="Breve descrição de suas formações, capacitações e habilidades..."
+          minlength={142}
+          maxlength={640}
           required
         />
 

@@ -79,7 +79,7 @@ export function ProfExpView({
             {startMonth} {startYear} - {endMonth} {endYear}{" "}
             <span className="font-bold">{title}</span>, {city}, {state}.
           </p>
-          <p className="text-slate-800 text-lg mt-2 mb-2.5">{description}</p>
+          <p className="text-slate-800 text-lg mt-2 mb-2.5 break-all">{description}</p>
         </div>
       )}
     </>

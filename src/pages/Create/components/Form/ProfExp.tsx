@@ -58,8 +58,21 @@ export function ProfExpForm({
       alert("Dado(s) faltando, preenche todo o formulário.");
       return;
     }
-    if (startYearState.length < 4 || endYearState.length < 4) {
-      alert("Formato de ano inválido");
+    const year = new Date().getFullYear();
+    if (startYearState.length != 4 || endYearState.length != 4) {
+      alert("Formato de ano inválido, formato: yyyy.");
+      return;
+    } else if (
+      +startYearState < 1970 ||
+      +startYearState > year ||
+      +endYearState < 1970 ||
+      +endYearState > year
+    ) {
+      alert(`O intervalo do ano deve ser entre 1970 e ${year}.`);
+      return;
+    }
+    if (startYearState === endYearState && endMonthState < startMonthState) {
+      alert("Data de fim está vindo antes da data de começo, por favor corrija as datas.");
       return;
     }
     const exp: ProfExpProps = {
@@ -86,7 +99,15 @@ export function ProfExpForm({
     setEndMonth("janeiro");
     setEndYear("");
     setDescription("");
-  }  
+  }
+  function onStartYearInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target;
+    handleYearValidation(value, setStartYear);
+  }
+  function onEndYearInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target;
+    handleYearValidation(value, setEndYear);
+  }
 
   return (
     <section className="flex flex-col gap-y-3.5">
@@ -94,6 +115,10 @@ export function ProfExpForm({
         label="Título"
         value={titleState}
         onChange={e => setTitle(e.target.value)}
+        placeholder="Ex.: Front-end developer na empresa tal..."
+        minlength={5}
+        maxlength={100}
+        required
       />
 
       <div className="flex gap-5">
@@ -102,12 +127,20 @@ export function ProfExpForm({
           label="Cidade"
           value={cityState}
           onChange={e => setCity(e.target.value)}
+          placeholder="Ex.: São Paulo"
+          minlength={3}
+          maxlength={20}
+          required
         />
         <Input
           className="w-full"
           label="Estado"
           value={stateState}
           onChange={e => setState(e.target.value)}
+          placeholder="Ex.: Amazonas"
+          minlength={3}
+          maxlength={15}
+          required
         />
       </div>
 
@@ -121,10 +154,15 @@ export function ProfExpForm({
               onChange={e => setStartMonth(e.target.value)}
             />
             <Input
-              className="w-16"
+              className="w-20"
+              type="number"
               label="Ano"
               value={startYearState}
-              onChange={e => handleYearValidation(e, setStartYear)}
+              onChange={onStartYearInputChange}
+              placeholder="yyyy"
+              min={1970}
+              max={new Date().getFullYear()}
+              required
             />
           </div>
         </fieldset>
@@ -137,10 +175,15 @@ export function ProfExpForm({
               onChange={e => setEndMonth(e.target.value)}
             />
             <Input
-              className="w-16"
+              className="w-20"
+              type="number"
               label="Ano"
               value={endYearState}
-              onChange={e => handleYearValidation(e, setEndYear)}
+              onChange={onEndYearInputChange}
+              placeholder="yyyy"
+              min={+startYearState}
+              max={new Date().getFullYear()}
+              required
             />
           </div>
         </fieldset>
@@ -151,6 +194,10 @@ export function ProfExpForm({
         rows={5}
         value={descriptionState}
         onChange={e => setDescription(e.target.value)}
+        placeholder="Descrição das atividades e obrigações realizadas nessa experiência"
+        minlength={142}
+        maxlength={640}
+        required
       />
 
       <RoundButton

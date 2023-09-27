@@ -40,7 +40,7 @@ export function MonthInput({
         required={required}
       >
         {months.map((month, index) => (
-          <option key={index} value={month}>
+          <option key={index} value={index}>
             {month}
           </option>
         ))}
