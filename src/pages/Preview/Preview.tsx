@@ -5,10 +5,10 @@ import PrinterIcon from "@/assets/icons/printer.svg";
 
 export function Preview() {
   const handlePrint = () => {
-    const printCV = document.getElementById("cv");
-    if (printCV) {
+    const printer = document.getElementById(" CVElement");
+    if (printer) {
       const cvPrint: any = window.open();
-      cvPrint.document.write(printCV.innerHTML);
+      cvPrint.document.write(printer.innerHTML);
       cvPrint.document.close();
       cvPrint.print();
     }
@@ -19,7 +19,7 @@ export function Preview() {
       <Header />
       <div className="flex justify-center self-center items-center mt-[40px] relative">
         <div
-          id="cv"
+          id=" CVElement"
           className="bg-[#F9F9F9] flex flex-col rounded-[5px] w-[70%] pt-[42px] pl-[38px]  mb-[38px] "
         >
           <h1 className="flex text-[32px] font-bold basis-full justify-center">
@@ -109,7 +109,10 @@ export function Preview() {
                 onClick={handlePrint}
                 className="w-[50px] h-[50px] flex justify-center items-center"
               >
-                <img src={PrinterIcon} />
+                <img
+                  src={PrinterIcon}
+                  alt="Botão representando uma impressora para imprimir ou baixar o curriculo feito"
+                />
               </RoundButton>
             )}
             content={() => document.getElementById("cv")}
