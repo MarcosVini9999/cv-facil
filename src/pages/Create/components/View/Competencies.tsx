@@ -33,6 +33,7 @@ export function CompetenciesView({ id, competency }: CompetenciesFormProps) {
           competency={competency}
           actionLabel="Salvar"
           actionFunction={handleEdit}
+          edit
         />
       ) : (
         <div className="flex gap-10 relative">

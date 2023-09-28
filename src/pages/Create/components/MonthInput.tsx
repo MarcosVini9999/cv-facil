@@ -1,3 +1,5 @@
+import { getMonth } from "@/utils/getMonth";
+
 interface MonthProps {
   className?: string;
   label: string;
@@ -32,11 +34,17 @@ export function MonthInput({
     <label
       className={`${className} flex flex-col font-medium text-slate-900 text-base cursor-pointer capitalize`}
     >
-      {label}
+      <span
+        className={`${
+          required ? "after:content-['*'] after:ml-0.5 after:text-red-500" : ""
+        }`}
+      >
+        {label}
+      </span>
       <select
         className="h-10 font-normal rounded p-2.5 bg-slate-200 capitalize"
-        onChange={onChange}
-        value={value}
+        onChange={e => onChange(getMonth(+e.target.value))}
+        value={getMonth(value)}
         required={required}
       >
         {months.map((month, index) => (

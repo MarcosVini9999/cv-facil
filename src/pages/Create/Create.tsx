@@ -101,7 +101,6 @@ export function Create() {
             placeholder="https://www.linkedin.com/in/username"
             minlength={29}
             maxlength={50}
-            required
           />
           <Input
             className="w-full"
@@ -111,7 +110,6 @@ export function Create() {
             placeholder="Ex.: https://github.com/username"
             minlength={20}
             maxlength={40}
-            required
           />
         </div>
         <Input

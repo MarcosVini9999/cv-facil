@@ -5,6 +5,8 @@ import { Input, RoundButton } from "@/components";
 import { ProfExpProps } from "@/config/interfaces";
 import { MonthInput } from "..";
 import { handleYearValidation } from "@/utils/validateYear";
+import xCircle from "@/assets/icons/xCircle.svg";
+import { getMonth } from "@/utils/getMonth";
 
 interface ProfExpFormProps {
   id?: string;
@@ -17,8 +19,8 @@ interface ProfExpFormProps {
   city?: string;
   state?: string;
   actionLabel: string;
-  actionClassName?: string;
   actionFunction: (args?: any) => void;
+  edit?: boolean;
 }
 
 export function ProfExpForm({
@@ -32,9 +34,10 @@ export function ProfExpForm({
   city = "",
   state = "",
   actionLabel,
-  actionClassName,
   actionFunction,
+  edit = false,
 }: ProfExpFormProps) {
+  const [open, setOpen] = React.useState(edit);
   const [titleState, setTitle] = React.useState(title);
   const [cityState, setCity] = React.useState(city);
   const [stateState, setState] = React.useState(state);
@@ -44,7 +47,7 @@ export function ProfExpForm({
   const [endYearState, setEndYear] = React.useState(endYear);
   const [descriptionState, setDescription] = React.useState(description);
 
-  function onButtonClick() {
+  function onAddButtonClick() {
     if (
       !titleState ||
       !cityState ||
@@ -71,8 +74,13 @@ export function ProfExpForm({
       alert(`O intervalo do ano deve ser entre 1970 e ${year}.`);
       return;
     }
-    if (startYearState === endYearState && endMonthState < startMonthState) {
-      alert("Data de fim está vindo antes da data de começo, por favor corrija as datas.");
+    if (
+      startYearState === endYearState &&
+      getMonth(endMonthState) < getMonth(startMonthState)
+    ) {
+      alert(
+        "Data de fim está vindo antes da data de começo, por favor corrija as datas.",
+      );
       return;
     }
     const exp: ProfExpProps = {
@@ -91,6 +99,9 @@ export function ProfExpForm({
       description: descriptionState,
     };
     actionFunction(exp);
+    onCloseFormButtonClick();
+  }
+  function clearForm() {
     setTitle("");
     setCity("");
     setState("");
@@ -99,6 +110,10 @@ export function ProfExpForm({
     setEndMonth("janeiro");
     setEndYear("");
     setDescription("");
+  }
+  function onCloseFormButtonClick() {
+    setOpen(false);
+    clearForm();
   }
   function onStartYearInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
@@ -111,101 +126,118 @@ export function ProfExpForm({
 
   return (
     <section className="flex flex-col gap-y-3.5">
-      <Input
-        label="Título"
-        value={titleState}
-        onChange={e => setTitle(e.target.value)}
-        placeholder="Ex.: Front-end developer na empresa tal..."
-        minlength={5}
-        maxlength={100}
-        required
-      />
+      {open ? (
+        <div className="relative flex flex-col gap-y-3.5">
+          {!edit ? (
+            <img
+              className="absolute right-0 -top-5 cursor-pointer hover:scale-105"
+              src={xCircle}
+              alt="Close button"
+              onClick={onCloseFormButtonClick}
+            />
+          ) : (
+            ""
+          )}
+          <Input
+            label="Título"
+            value={titleState}
+            onChange={e => setTitle(e.target.value)}
+            placeholder="Ex.: Front-end developer na empresa tal..."
+            minlength={5}
+            maxlength={100}
+            required
+          />
 
-      <div className="flex gap-5">
-        <Input
-          className="w-full"
-          label="Cidade"
-          value={cityState}
-          onChange={e => setCity(e.target.value)}
-          placeholder="Ex.: São Paulo"
-          minlength={3}
-          maxlength={20}
-          required
-        />
-        <Input
-          className="w-full"
-          label="Estado"
-          value={stateState}
-          onChange={e => setState(e.target.value)}
-          placeholder="Ex.: Amazonas"
-          minlength={3}
-          maxlength={15}
-          required
-        />
-      </div>
-
-      <div className="flex gap-5 justify-center self-center flex-wrap">
-        <fieldset className="border rounded p-5">
-          <legend className="font-bold">Início</legend>
-          <div className="flex gap-10">
-            <MonthInput
-              label="Mês"
-              value={startMonthState}
-              onChange={e => setStartMonth(e.target.value)}
+          <div className="flex gap-5">
+            <Input
+              className="w-full"
+              label="Cidade"
+              value={cityState}
+              onChange={e => setCity(e.target.value)}
+              placeholder="Ex.: São Paulo"
+              minlength={3}
+              maxlength={20}
+              required
             />
             <Input
-              className="w-20"
-              type="number"
-              label="Ano"
-              value={startYearState}
-              onChange={onStartYearInputChange}
-              placeholder="yyyy"
-              min={1970}
-              max={new Date().getFullYear()}
+              className="w-full"
+              label="Estado"
+              value={stateState}
+              onChange={e => setState(e.target.value)}
+              placeholder="Ex.: Amazonas"
+              minlength={3}
+              maxlength={15}
               required
             />
           </div>
-        </fieldset>
-        <fieldset className="border rounded p-5">
-          <legend className="font-bold">Fim</legend>
-          <div className="flex gap-10">
-            <MonthInput
-              label="Mês"
-              value={endMonthState}
-              onChange={e => setEndMonth(e.target.value)}
-            />
-            <Input
-              className="w-20"
-              type="number"
-              label="Ano"
-              value={endYearState}
-              onChange={onEndYearInputChange}
-              placeholder="yyyy"
-              min={+startYearState}
-              max={new Date().getFullYear()}
-              required
-            />
+
+          <div className="flex gap-5 justify-center self-center flex-wrap">
+            <fieldset className="border rounded p-5">
+              <legend className="font-bold">Início</legend>
+              <div className="flex gap-10">
+                <MonthInput
+                  label="Mês"
+                  value={startMonthState}
+                  onChange={setStartMonth}
+                  required
+                />
+                <Input
+                  className="w-20"
+                  type="number"
+                  label="Ano"
+                  value={startYearState}
+                  onChange={onStartYearInputChange}
+                  placeholder="yyyy"
+                  min={1970}
+                  max={new Date().getFullYear()}
+                  required
+                />
+              </div>
+            </fieldset>
+            <fieldset className="border rounded p-5">
+              <legend className="font-bold">Fim</legend>
+              <div className="flex gap-10">
+                <MonthInput
+                  label="Mês"
+                  value={endMonthState}
+                  onChange={setEndMonth}
+                  required
+                />
+                <Input
+                  className="w-20"
+                  type="number"
+                  label="Ano"
+                  value={endYearState}
+                  onChange={onEndYearInputChange}
+                  placeholder="yyyy"
+                  min={+startYearState}
+                  max={new Date().getFullYear()}
+                  required
+                />
+              </div>
+            </fieldset>
           </div>
-        </fieldset>
-      </div>
 
-      <Input
-        label="Descrição"
-        rows={5}
-        value={descriptionState}
-        onChange={e => setDescription(e.target.value)}
-        placeholder="Descrição das atividades e obrigações realizadas nessa experiência"
-        minlength={142}
-        maxlength={640}
-        required
-      />
+          <Input
+            label="Descrição"
+            rows={5}
+            value={descriptionState}
+            onChange={e => setDescription(e.target.value)}
+            placeholder="Descrição das atividades e obrigações realizadas nessa experiência"
+            minlength={142}
+            maxlength={640}
+            required
+          />
 
-      <RoundButton
-        className={`${actionClassName} self-center`}
-        onClick={onButtonClick}
-      >
-        {actionLabel}
-      </RoundButton>
+          <RoundButton className="self-center" onClick={onAddButtonClick}>
+            {actionLabel}
+          </RoundButton>
+        </div>
+      ) : (
+        <RoundButton className="self-center" onClick={() => setOpen(true)}>
+          {actionLabel}
+        </RoundButton>
+      )}
     </section>
   );
 }

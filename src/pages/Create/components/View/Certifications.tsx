@@ -36,6 +36,7 @@ export function CertificationsView({ id, title, year }: CompetenciesFormProps) {
           year={year}
           actionLabel="Salvar"
           actionFunction={handleEdit}
+          edit
         />
       ) : (
         <div className="flex gap-10 relative">

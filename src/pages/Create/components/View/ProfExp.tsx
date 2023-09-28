@@ -56,8 +56,8 @@ export function ProfExpView({
           city={city}
           state={state}
           actionLabel={"Salvar"}
-          actionClassName="bg-green-500"
           actionFunction={handleEdit}
+          edit
         />
       ) : (
         <div className="border-2 p-1 mb-3.5 rounded relative">
