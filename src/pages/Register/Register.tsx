@@ -7,23 +7,6 @@ export function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const validarEmail = () =>{
-    const regexEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.com$/;
-    return alert(regexEmail.test(email));
-  }
-
-  const validName = () =>{
-    const regexNome = /^[A-Za-z\s]+$/;
-    return alert(regexNome.test(name));
-  }
-
-  const validPassword = () =>{
-    if(password===confirmPassword){
-    }else{
-      alert("As senhas digitadas não coincidem")
-    }
-  }
-
   return (
     <div>
       <Header className="shadow-none"/>
