@@ -2,10 +2,11 @@ import ReactToPrint from "react-to-print";
 
 import { Header, RoundButton } from "@/components";
 import PrinterIcon from "@/assets/icons/printer.svg";
+import { TitleSection } from "./components";
 
 export function Preview() {
   const handlePrint = () => {
-    const printer = document.getElementById(" CVElement");
+    const printer = document.getElementById("CVElement");
     if (printer) {
       const cvPrint: any = window.open();
       cvPrint.document.write(printer.innerHTML);
@@ -19,23 +20,21 @@ export function Preview() {
       <Header />
       <div className="flex justify-center self-center items-center mt-[40px] relative">
         <div
-          id=" CVElement"
+          id="CVElement"
           className="bg-[#F9F9F9] flex flex-col rounded-[5px] w-[70%] pt-[42px] pl-[38px]  mb-[38px] "
         >
           <h1 className="flex text-[32px] font-bold basis-full justify-center">
             Nome completo do usuário
           </h1>
           <div className="flex flex-col text-[16px] font-normal">
-            <span className="text-[20px] font-medium mb-[12px]">CONTATO</span>
+            <TitleSection>CONTATO</TitleSection>
             <span>Celular: (xx) x xxxx xxxx</span>
             <span>Email: name@mail.com</span>
             <span>Linkedin: www.linkedin.com/in/perfil</span>
             <span>Github: www.github.com/perfil</span>
           </div>
           <div className="flex flex-col ">
-            <span className="text-[20px] font-medium mt-[12px] mb-[7px]">
-              RESUMO PROFISSIONAL
-            </span>
+            <TitleSection>RESUMO PROFISSIONAL</TitleSection>
             <span className="w-[90%]">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
               id velit sed lorem interdum bibendum ut quis libero. Proin
@@ -46,9 +45,7 @@ export function Preview() {
             </span>
           </div>
           <div className="flex flex-col ">
-            <span className="text-[20px] font-medium mt-[16px] mb-[12px]">
-              EXPERIÊNCIA PROFISSIONAL
-            </span>
+            <TitleSection>EXPERIÊNCIA PROFISSIONAL</TitleSection>
             <span>
               Mês ano - Mês ano <span className="font-bold">Título</span>,
               Cidade, Estado.{" "}
@@ -69,9 +66,7 @@ export function Preview() {
             </span>
           </div>
           <div className="flex flex-col">
-            <span className="text-[20px] font-medium mt-[16px] mb-[12px]">
-              COMPETÊNCIAS
-            </span>
+            <TitleSection>COMPETÊNCIAS</TitleSection>
             <div className="flex flex-row">
               <div className="flex flex-col mr-[50%]">
                 <span>Tecnologia A</span>
@@ -88,9 +83,7 @@ export function Preview() {
             </div>
           </div>
           <div className="flex flex-col mb-[38px]">
-            <span className="text-[20px] font-medium mt-[16px] mb-[12px]">
-              CERTIFICAÇÕES
-            </span>
+            <TitleSection>CERTIFICAÇÕES</TitleSection>
             <span>
               <span className="font-bold">Título,</span> Ano
             </span>
@@ -115,7 +108,7 @@ export function Preview() {
                 />
               </RoundButton>
             )}
-            content={() => document.getElementById("cv")}
+            content={() => document.getElementById("CVElement")}
             pageStyle="@page {
               size: A4;
               margin: 10px;
