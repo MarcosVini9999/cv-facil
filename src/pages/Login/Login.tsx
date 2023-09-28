@@ -30,7 +30,7 @@ export function Login() {
 
   return (
     <div className="flex flex-row h-screen ">
-      <div className="flex flex-col bg-[#FB4E4E] text-[#F7F7F7] w-[422px] items-center h-full ">
+      <div className="flex flex-col bg-[#FB4E4E] text-[#F7F7F7] w-[422px] items-center h-full gap-y-[20%]">
         <div className="flex gap-x-16 pl-6 pr-6 mt-8 items-center mr-[12px] ml-[12px]">
           <a className="text-[2x'6px] font-bold flex flex-row items-center">
             <img src={iconCV} />
@@ -38,7 +38,7 @@ export function Login() {
           </a>
           <a className="text-[14px] font-medium cursor-pointer">Início</a>
         </div>
-        <div className="flex flex-col items-center justify-center mt-48 gap-y-[30px]">
+        <div className="flex flex-col items-center justify-center gap-y-[30px]">
           <span className="text-[30px] font-bold  text-center">
             Que bom que voltou!
           </span>
