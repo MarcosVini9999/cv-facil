@@ -4,24 +4,12 @@ import iconView from "@/assets/icons/view.png";
 import React from "react";
 
 export function Login() {
-  const [login, setLogin] = React.useState({
-    email: "",
-    password: "",
-  });
-  const [validEmail, setValidEmail] = React.useState(true);
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const [seePassword, setSeePassword] = React.useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    if (name === "email") {
-      const emailRegex = /^\w+@[a-z]+(\.[a-z]+)+$/;
-      setValidEmail(false);
-      if (emailRegex.test(value)) {
-        console.log("valido");
-        setValidEmail(true);
-      }
-    }
-    setLogin((prevState) => ({ ...prevState, [name]: value }));
+    setPassword(password);
   };
 
   const SeePasswordButtonClick = () => {
@@ -50,7 +38,7 @@ export function Login() {
           </a>
         </div>
       </div>
-      <div className="bg-[#FFF] w-screen flex flex-col items-center justify-center ml-[12px] mr-[12px]">
+      <form className="bg-[#FFF] w-screen flex flex-col items-center justify-center ml-[12px] mr-[12px]">
         <span className="text-[35px] font-medium mb-[34px]">
           Entre em sua conta
         </span>
@@ -58,19 +46,23 @@ export function Login() {
           <label className="text-[20px] font-normal">E-mail</label>
           <input
             className={`${
-              !validEmail && login.email != "" ? "border border-red-600" : ""
-            } bg-[#E5E5E5] w-[300px] h-[40px] p-2 mb-[15px]`}
+              email.length >= 6 ? "border invalid:border-red-500" : ""
+            }  bg-[#E5E5E5] w-[300px] h-[40px] p-2 mb-[15px]  `}
             type="email"
             placeholder="seuemail@email.com"
-            onChange={handleInputChange}
-            value={login.email}
+            onChange={(event) => setEmail(event.target.value)}
+            pattern="[a-z0-9.]+@[a-z0-9]+\.[a-z]+"
+            value={email}
+            required
             name="email"
           />
           <label className="text-[20px] font-normal">Senha</label>
           <div className="flex flex-row items-center gap-x-2">
             <input
               className="bg-[#E5E5E5] w-[300px] h-[40px] p-2"
+              value={password}
               type={seePassword ? "text" : "password"}
+              onChange={(event) => setPassword(event.target.value)}
             />
             <img
               className="h-[24px] w-[24px]"
@@ -82,8 +74,10 @@ export function Login() {
         <span className="mt-[37px] text-[16px] font-normal opacity-80 cursor-pointer text-[#FB4E4ECC] underline italic">
           Esqueceu sua senha?
         </span>
-        <RoundButton className="mt-[35px] w-[100px]">Entrar</RoundButton>
-      </div>
+        <RoundButton className="mt-[35px] w-[100px]" type="submit">
+          Entrar
+        </RoundButton>
+      </form>
     </div>
   );
 }
