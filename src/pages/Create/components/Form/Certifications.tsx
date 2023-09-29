@@ -55,10 +55,6 @@ export function CertificationsForm({
     setOpen(false);
     clearForm();
   }
-  function onYearInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const { value } = event.target;
-    handleYearValidation(value, setYear);
-  }
 
   return (
     <section className="flex flex-col gap-y-3.5">
@@ -90,7 +86,7 @@ export function CertificationsForm({
               type="number"
               label="Ano"
               value={yearState}
-              onChange={onYearInputChange}
+              onChange={e => handleYearValidation(e.target.value, setYear)}
               placeholder="yyyy"
               min={1970}
               max={new Date().getFullYear()}

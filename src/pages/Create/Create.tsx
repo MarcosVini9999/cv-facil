@@ -98,7 +98,7 @@ export function Create() {
             label="Linkedin"
             value={linkedin}
             onChange={e => setLinkedin(e.target.value)}
-            placeholder="https://www.linkedin.com/in/username"
+            placeholder="Ex.: https://www.linkedin.com/in/username"
             minlength={29}
             maxlength={50}
           />

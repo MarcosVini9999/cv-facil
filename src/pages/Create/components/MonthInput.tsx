@@ -1,4 +1,4 @@
-import { getMonth } from "@/utils/getMonth";
+import { getMonth, months } from "@/utils/getMonth";
 
 interface MonthProps {
   className?: string;
@@ -7,21 +7,6 @@ interface MonthProps {
   onChange: (value: any) => void;
   required?: boolean;
 }
-
-const months = [
-  "janeiro",
-  "fevereiro",
-  "março",
-  "abril",
-  "maio",
-  "junho",
-  "julho",
-  "agosto",
-  "setembro",
-  "outubro",
-  "novembro",
-  "dezembro",
-];
 
 export function MonthInput({
   className,

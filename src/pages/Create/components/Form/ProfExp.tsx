@@ -2,11 +2,11 @@ import React from "react";
 import uuid from "react-uuid";
 
 import { Input, RoundButton } from "@/components";
-import { ProfExpProps } from "@/config/interfaces";
 import { MonthInput } from "..";
+import { ProfExpProps } from "@/config/interfaces";
 import { handleYearValidation } from "@/utils/validateYear";
-import xCircle from "@/assets/icons/xCircle.svg";
 import { getMonth } from "@/utils/getMonth";
+import xCircle from "@/assets/icons/xCircle.svg";
 
 interface ProfExpFormProps {
   id?: string;
@@ -115,14 +115,6 @@ export function ProfExpForm({
     setOpen(false);
     clearForm();
   }
-  function onStartYearInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const { value } = event.target;
-    handleYearValidation(value, setStartYear);
-  }
-  function onEndYearInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const { value } = event.target;
-    handleYearValidation(value, setEndYear);
-  }
 
   return (
     <section className="flex flex-col gap-y-3.5">
@@ -186,7 +178,9 @@ export function ProfExpForm({
                   type="number"
                   label="Ano"
                   value={startYearState}
-                  onChange={onStartYearInputChange}
+                  onChange={e =>
+                    handleYearValidation(e.target.value, setStartYear)
+                  }
                   placeholder="yyyy"
                   min={1970}
                   max={new Date().getFullYear()}
@@ -208,7 +202,9 @@ export function ProfExpForm({
                   type="number"
                   label="Ano"
                   value={endYearState}
-                  onChange={onEndYearInputChange}
+                  onChange={e =>
+                    handleYearValidation(e.target.value, setEndYear)
+                  }
                   placeholder="yyyy"
                   min={+startYearState}
                   max={new Date().getFullYear()}

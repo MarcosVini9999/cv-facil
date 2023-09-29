@@ -1,10 +1,8 @@
 import React from "react";
 
-import { CompetenciesForm, IconButton } from "..";
+import { CompetenciesForm, ControlButtons } from "..";
 import { CompetencyProps } from "@/config/interfaces";
 import { CreateContext } from "@/contexts/create";
-import trash from "@/assets/icons/trash.svg";
-import edit from "@/assets/icons/edit.svg";
 
 interface CompetenciesFormProps {
   id: string;
@@ -24,6 +22,9 @@ export function CompetenciesView({ id, competency }: CompetenciesFormProps) {
     setEditMode(false);
     editCompetency(comp);
   }
+  function onEditButtonClick() {
+    setEditMode(true);
+  }
 
   return (
     <>
@@ -37,20 +38,7 @@ export function CompetenciesView({ id, competency }: CompetenciesFormProps) {
         />
       ) : (
         <div className="flex gap-10 relative">
-          <div className="flex gap-2 mb-1 top-0 -right-10">
-            <IconButton
-              className="bg-green-500"
-              icon={edit}
-              alt="Edit icon"
-              onClick={() => setEditMode(true)}
-            />
-            <IconButton
-              className="bg-red-500"
-              icon={trash}
-              alt="Delete icon"
-              onClick={handleDelete}
-            />
-          </div>
+          <ControlButtons onDelete={handleDelete} onEdit={onEditButtonClick} />
           <p className="text-xl font-normal text-slate-800 capitalize">
             {competency}
           </p>
