@@ -23,6 +23,7 @@ export function Input({ className, label, type, value, onChange }: InputProps) {
           className="w-full h-10 rounded px-2.5	bg-slate-200"
           type={type ? password : "text"}
           value={value}
+          required
           onChange={e => onChange(e.target.value)}
         />
         <button onClick={e=>setPassword(password==="text"?"password":"text")} className={type==="password"?"block absolute right-[2%] mt-[5px]":"hidden"}>
