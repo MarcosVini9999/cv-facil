@@ -8,10 +8,6 @@ export function Login() {
   const [password, setPassword] = React.useState("");
   const [seePassword, setSeePassword] = React.useState(false);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(password);
-  };
-
   const SeePasswordButtonClick = () => {
     setSeePassword(!seePassword);
   };
