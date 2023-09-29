@@ -26,7 +26,7 @@ export function Input({ className, label, type, value, onChange }: InputProps) {
           required
           onChange={e => onChange(e.target.value)}
         />
-        <button onClick={e=>setPassword(password==="text"?"password":"text")} className={type==="password"?"block absolute right-[2%] mt-[5px]":"hidden"}>
+        <button onClick={e=>setPassword(password==="text"?"password":"text")} className={type==="password"?"block absolute right-[2%] mt-[5px]":"hidden"} type="button">
           <img src={password==="password"?hidePassword:showPassword} alt="" className="w-[30px]"/>
         </button>
       </div>
