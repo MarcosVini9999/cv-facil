@@ -4,7 +4,7 @@ import HomeImg from "@/assets/images/home.jpg"
 export function Home() {
   return (
     <div>
-      <Header className="shadow-none"/>
+      <Header className="shadow-none bg-white"/>
       <div className="flex justify-evenly mt-[60px]">
         <div className="w-[400px] mt-[40px]">
           <h1 className="font-bold text-[32px] leading-[56px] lg:text-[48px]">Precisa de ajuda com o currículo?</h1>

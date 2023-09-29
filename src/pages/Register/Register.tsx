@@ -26,7 +26,7 @@ export function Register() {
 
   return (
     <div>
-      <Header className="shadow-none"/>
+      <Header className="shadow-none bg-white"/>
       <div className="w-[65%] flex justify-center">
         <div className="flex items-center flex-col">
           <h1 className="text-[30px] font-medium text-center mt-[50px] mb-[30px]">Crie sua conta</h1>
