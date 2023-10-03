@@ -5,12 +5,14 @@ import showPassword from "@/assets/icons/show.png"
 interface InputProps {
   className?: string;
   label: string;
+  error?:boolean;
+  errorMsg?:string;
   type?: string;
   value: string;
   onChange: (value: string) => void;
 }
 
-export function Input({ className, label, type, value, onChange }: InputProps) {
+export function Input({ className, label, type, value, onChange, errorMsg, error }: InputProps) {
   const[password,setPassword] = useState(type)
   
   return (
@@ -20,7 +22,7 @@ export function Input({ className, label, type, value, onChange }: InputProps) {
       {label}
       <div className="flex relative">
         <input
-          className="w-full h-10 rounded px-2.5	bg-slate-200"
+          className={`w-full h-10 w-[248px] rounded bg-slate-200 ${type==="password"?"pr-[18%] pl-2.5":"px-2.5"}`}
           type={type ? password : "text"}
           value={value}
           required
