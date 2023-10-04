@@ -73,7 +73,7 @@ export function Input({
               clicked
                 ? "invalid:border-red-500 valid:border-green-500"
                 : "focus:invalid:border-red-500 focus:valid:border-green-500"
-            } h-10 w-full`}
+            } h-10 w-full ${type==="password"?"pr-[18%] pl-2.5":"px-2.5"}`}
             type={type ? password : "text"}
             value={value}
             placeholder={placeholder}
