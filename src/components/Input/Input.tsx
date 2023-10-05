@@ -1,44 +1,87 @@
+import React from "react";
+
 interface InputProps {
   className?: string;
+  placeholder?: string;
   label: string;
   type?: string;
   rows?: number;
   value: any;
   onChange: (value: any) => void;
   required?: boolean;
+  min?: number;
+  max?: number;
+  minlength?: number;
+  maxlength?: number;
+  pattern?: string;
 }
 
 export function Input({
   className,
   label,
+  placeholder,
   type,
   rows,
   value,
   onChange,
   required = false,
+  min,
+  max,
+  minlength,
+  maxlength,
+  pattern,
 }: InputProps) {
-  const style = "font-normal rounded p-2.5 bg-slate-200";
+  const [clicked, setClicked] = React.useState(false);
+  const style =
+    "font-normal rounded p-2.5 bg-slate-200 invalid:border valid:border";
 
   return (
     <label
       className={`${className} flex flex-col font-medium text-slate-900 text-base cursor-pointer capitalize`}
     >
-      {label}
+      <span
+        className={`${
+          required ? "after:content-['*'] after:ml-0.5 after:text-red-500" : ""
+        }`}
+      >
+        {label}
+      </span>
       {rows && rows > 1 ? (
         <textarea
-          className={`${style} w-full`}
+          className={`${style} ${
+            clicked
+              ? "invalid:border-red-500 valid:border-green-500"
+              : "focus:invalid:border-red-500 focus:valid:border-green-500"
+          } w-full`}
           rows={rows}
           value={value}
-          onChange={e => onChange(e.target.value)}
+          placeholder={placeholder}
+          minLength={minlength}
+          maxLength={maxlength}
+          onChange={onChange}
           required={required}
+          onClick={() => setClicked(true)}
+          onFocus={() => setClicked(true)}
         ></textarea>
       ) : (
         <input
-          className={`${style} h-10 w-full`}
+          className={`${style} ${
+            clicked
+              ? "invalid:border-red-500 valid:border-green-500"
+              : "focus:invalid:border-red-500 focus:valid:border-green-500"
+          } h-10 w-full`}
           type={type ? type : "text"}
           value={value}
-          onChange={e => onChange(e.target.value)}
+          placeholder={placeholder}
+          minLength={minlength}
+          maxLength={maxlength}
+          min={min}
+          max={max}
+          onChange={onChange}
           required={required}
+          pattern={pattern}
+          onClick={() => setClicked(true)}
+          onFocus={() => setClicked(true)}
         />
       )}
     </label>
