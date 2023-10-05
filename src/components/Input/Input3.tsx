@@ -1,14 +1,11 @@
-import React from "react";
-
-import hidePasswordIcon from "@/assets/icons/hide.png";
-import showPasswordIcon from "@/assets/icons/show.png";
+import React, { useState } from "react";
+import hidePassword from "@/assets/icons/hide.png"
+import showPassword from "@/assets/icons/show.png"
 
 interface InputProps {
   className?: string;
   placeholder?: string;
   label: string;
-  error?: boolean;
-  errorMsg?: string;
   type?: string;
   rows?: number;
   value: any;
@@ -37,7 +34,8 @@ export function Input({
   pattern,
 }: InputProps) {
   const [clicked, setClicked] = React.useState(false);
-  const [showPassword, setShowPassword] = React.useState(false);
+  const[password,setPassword] = useState(type)
+
   const style =
     "font-normal rounded p-2.5 bg-slate-200 invalid:border valid:border";
 
@@ -69,21 +67,14 @@ export function Input({
           onClick={() => setClicked(true)}
           onFocus={() => setClicked(true)}
         ></textarea>
-      ) : (
-        <div className="flex relative">
+      ) : (<div className="relative">
           <input
             className={`${style} ${
               clicked
                 ? "invalid:border-red-500 valid:border-green-500"
                 : "focus:invalid:border-red-500 focus:valid:border-green-500"
-            } h-10 w-full`}
-            type={
-              type
-                ? type === "password" && showPassword
-                  ? "text"
-                  : type
-                : "text"
-            }
+            } h-10 w-full ${type==="password"?"pr-[18%] pl-2.5":"px-2.5"}`}
+            type={type ? password : "text"}
             value={value}
             placeholder={placeholder}
             minLength={minlength}
@@ -96,21 +87,9 @@ export function Input({
             onClick={() => setClicked(true)}
             onFocus={() => setClicked(true)}
           />
-          {type === "password" ? (
-            <button
-              className="block absolute right-[2%] mt-[5px]"
-              type="button"
-              onClick={() => setShowPassword(showPassword ? false : true)}
-            >
-              <img
-                src={showPassword ? hidePasswordIcon : showPasswordIcon}
-                alt="eye icon"
-                className="w-[30px]"
-              />
-            </button>
-          ) : (
-            ""
-          )}
+          <button onClick={e=>setPassword(password==="text"?"password":"text")} className={type==="password"?"block absolute right-[2%] mt-[-35px]":"hidden"} type="button">
+            <img src={password==="password"?hidePassword:showPassword} alt="" className="w-[30px]"/>
+          </button>
         </div>
       )}
     </label>
