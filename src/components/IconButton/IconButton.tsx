@@ -1,6 +1,6 @@
 import xCircle from "@/assets/icons/xCircle.svg";
 
-interface RoundButtonProps {
+interface IconButtonProps {
   className?: string;
   icon: string;
   description?: string;
@@ -8,10 +8,10 @@ interface RoundButtonProps {
   onDelete?: () => void;
 }
 
-export function IconButton({ className, icon, description, onClick, onDelete }: RoundButtonProps) {
+export function IconButton({ className, icon, description, onClick, onDelete }: IconButtonProps) {
   return (
     <button
-      className={`w-[3.4375rem] h-[3.4375rem] hover:scale-105 ${className}`}
+      className={`${className} w-[3.4375rem] h-[3.4375rem] hover:scale-105`}
       onClick={onClick}
     >
       <div className="relative">
