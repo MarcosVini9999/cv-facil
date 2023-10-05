@@ -4,4 +4,5 @@ export enum AppRoutes {
   preview = "/preview",
   create = "/create",
   edit = "/edit/:id",
+  profile = "/profile",
 }
