@@ -1,7 +1,7 @@
 import React from "react";
 
 interface UserProviderProps {
-  user: UserProps
+  user: UserProps;
   setUser: (user: UserProps) => void;
 }
 
