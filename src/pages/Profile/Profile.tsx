@@ -1,4 +1,4 @@
-import { Header, IconButton, Input, Button } from "@/components";
+import { Header, IconButton, Input, Button, Modal } from "@/components";
 import { useState, useEffect } from "react";
 import fileText from "@/assets/icons/fileText.svg";
 import userImage from "@/assets/images/user.png";
@@ -17,7 +17,19 @@ interface UserProps {
   password: string;
 }
 
+interface ResumeProps {
+  id: string;
+  userId: string;
+  jobTitle: string;
+  phone: string;
+  linkedin: string;
+  github: string;
+  resume: string;
+  createdAt: string;
+}
+
 export function Profile() {
+  const userId = "342fd874-42e8-454e-9edf-39db13ede764";
   const [useData, setUserData] = useState<UserProps>({
     avatar: "",
     email: "",
@@ -29,19 +41,26 @@ export function Profile() {
   const [email, setEmail] = useState<string>(useData.email);
   const [password, setPassword] = useState<string>(useData.password);
   const [confirmPassword, setconfirmPassword] = useState<string>(useData.password);
+  const [resumes, setResumes] = useState<Array<ResumeProps>>([]);
+  const [deleteAccountModal, setDeleteAccountModal] = useState<boolean>(false);
+  const [deleteResumesModal, setDeleteResumesModal] = useState<boolean>(false);
 
   const onNameChange = (event: any) => {
     setName(event.target.value);
   };
+
   const onEmailChange = (event: any) => {
     setEmail(event.target.value);
   };
+
   const onPasswordChange = (event: any) => {
     setPassword(event.target.value);
   };
+
   const onConfirmPasswordChange = (event: any) => {
     setconfirmPassword(event.target.value);
   };
+
   const onSaveChanges = async () => {
     const data = {
       avatar: "12",
@@ -49,7 +68,9 @@ export function Profile() {
       email: email,
       password: confirmPassword === password ? password : null,
     };
-    const url = port + "/users/342fd874-42e8-454e-9edf-39db13ede764";
+
+    const url = port + `/users/${userId}`;
+
     try {
       await axios.put(url, data);
     } catch (error) {
@@ -57,23 +78,49 @@ export function Profile() {
     }
   };
 
-  const fetchData = async () => {
-    let result;
+  const onDeleteAccount = async () => {
+    await apiCVFacil.delete(`/users/${userId}`);
+  };
+
+  const onDeleteResume = async (resumeID: string) => {
+    await apiCVFacil.delete(`/cvs/${resumeID}`);
+
+    const newResumes = resumes.filter((resume) => {
+      return resume.id !== resumeID;
+    });
+
+    setResumes(newResumes);
+  };
+
+  const fetchDataUser = async () => {
+    let userData;
     try {
-      result = await apiCVFacil.get(`/users/342fd874-42e8-454e-9edf-39db13ede764`);
+      userData = await apiCVFacil.get(`/users/${userId}`);
     } catch (e) {
       console.log(e);
     } finally {
-      setUserData(result?.data);
-      setName(result?.data.name);
-      setEmail(result?.data.email);
-      setPassword(result?.data.password);
-      setconfirmPassword(result?.data.password);
+      setUserData(userData?.data);
+      setName(userData?.data.name);
+      setEmail(userData?.data.email);
+      setPassword(userData?.data.password);
+      setconfirmPassword(userData?.data.password);
+    }
+  };
+
+  const fetchResumes = async () => {
+    let resume;
+    try {
+      resume = await apiCVFacil.get(`/cvs/${userId}`);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setResumes(resume?.data);
     }
   };
 
   useEffect(() => {
-    fetchData();
+    fetchDataUser();
+    fetchResumes();
   }, []);
 
   return (
@@ -88,9 +135,16 @@ export function Profile() {
               Currículos criados.
             </h2>
             <div className="flex gap-5">
-              <IconButton icon={fileText} description="1" />
-              <IconButton icon={fileText} description="2" />
-              <IconButton icon={fileText} description="3" />
+              {resumes.map((resume) => (
+                <IconButton
+                  icon={fileText}
+                  description={resume.jobTitle}
+                  onDelete={() => {
+                    onDeleteResume(resume.id);
+                  }}
+                  key={resume.id}
+                />
+              ))}
             </div>
           </div>
         </section>
@@ -138,15 +192,41 @@ export function Profile() {
               Cuidado, as ações aqui não podem ser desfeitas.
             </h2>
             <div className="flex flex-col items-center gap-[1.19rem]">
-              <Button className="bg-[#FF2C2C] w-[8.75rem] h-[2.1875rem]" icon={refresh}>
+              <Button
+                className="bg-[#FF2C2C] w-[8.75rem] h-[2.1875rem]"
+                icon={refresh}
+                onClick={() => setDeleteAccountModal(!deleteResumesModal)}
+              >
                 Apagar CVs
               </Button>
-              <Button className="bg-[#FF2C2C] w-[8.75rem] h-[2.1875rem]" icon={trash}>
+              <Button
+                className="bg-[#FF2C2C] w-[8.75rem] h-[2.1875rem]"
+                icon={trash}
+                onClick={() => setDeleteAccountModal(!deleteAccountModal)}
+              >
                 Deletar conta
               </Button>
             </div>
           </div>
         </section>
+
+        <Modal
+          title={"Alerta !"}
+          description={"Deseja deletar todos os seus currículos no CV de uma só vez?"}
+          actionButtonName={"Deletar"}
+          cancelButtonName={"Não, voltar"}
+          open={deleteResumesModal}
+          setOpen={setDeleteResumesModal}
+        />
+        <Modal
+          title={"Alerta !"}
+          description={"Deseja deletar sua conta ?"}
+          actionButtonName={"Deletar"}
+          cancelButtonName={"Não, voltar"}
+          open={deleteAccountModal}
+          setOpen={setDeleteAccountModal}
+          onAction={onDeleteAccount}
+        />
       </main>
     </>
   );
