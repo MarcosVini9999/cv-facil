@@ -1,30 +1,80 @@
 import { Header, IconButton, Input, Button } from "@/components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import fileText from "@/assets/icons/fileText.svg";
 import userImage from "@/assets/images/user.png";
 import upload from "@/assets/icons/upload.svg";
 import save from "@/assets/icons/save.svg";
 import refresh from "@/assets/icons/refreshCw.svg";
 import trash from "@/assets/icons/trash.svg";
+import apiCVFacil, { port } from "@/services/apiCVFacil";
+import axios from "axios";
+
+interface UserProps {
+  avatar: string;
+  email: string;
+  id: string;
+  name: string;
+  password: string;
+}
 
 export function Profile() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setconfirmPassword] = useState("");
+  const [useData, setUserData] = useState<UserProps>({
+    avatar: "",
+    email: "",
+    id: "",
+    name: "",
+    password: "",
+  });
+  const [name, setName] = useState<string>(useData.name);
+  const [email, setEmail] = useState<string>(useData.email);
+  const [password, setPassword] = useState<string>(useData.password);
+  const [confirmPassword, setconfirmPassword] = useState<string>(useData.password);
 
-  const onNameChange = (event: string) => {
-    setName(event);
+  const onNameChange = (event: any) => {
+    setName(event.target.value);
   };
-  const onEmailChange = (event: string) => {
-    setEmail(event);
+  const onEmailChange = (event: any) => {
+    setEmail(event.target.value);
   };
-  const onPasswordChange = (event: string) => {
-    setPassword(event);
+  const onPasswordChange = (event: any) => {
+    setPassword(event.target.value);
   };
-  const onConfirmPasswordChange = (event: string) => {
-    setconfirmPassword(event);
+  const onConfirmPasswordChange = (event: any) => {
+    setconfirmPassword(event.target.value);
   };
+  const onSaveChanges = async () => {
+    const data = {
+      avatar: "12",
+      name: name,
+      email: email,
+      password: confirmPassword === password ? password : null,
+    };
+    const url = port + "/users/342fd874-42e8-454e-9edf-39db13ede764";
+    try {
+      await axios.put(url, data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchData = async () => {
+    let result;
+    try {
+      result = await apiCVFacil.get(`/users/342fd874-42e8-454e-9edf-39db13ede764`);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setUserData(result?.data);
+      setName(result?.data.name);
+      setEmail(result?.data.email);
+      setPassword(result?.data.password);
+      setconfirmPassword(result?.data.password);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -34,7 +84,7 @@ export function Profile() {
         <section className="mx-[1rem] mt-[6rem] mb-[2.12rem]">
           <h1 className="text-[1.5rem] not-italic font-normal">Currículos</h1>
           <div className="h-[8.5625rem] rounded-[0.625rem] bg-[#F0F0F0] shadow-5540 pt-[1rem] pb-[0.94rem] px-[2.19rem]">
-            <h2 className="text-center text-[1rem] not-italic font-normal opacity-70">
+            <h2 className="text-center text-[1rem] not-italic font-normal opacity-70 mb-2">
               Currículos criados.
             </h2>
             <div className="flex gap-5">
@@ -71,7 +121,11 @@ export function Profile() {
                 onChange={onConfirmPasswordChange}
               />
             </div>
-            <Button icon={save} className="w-[5.625rem] h-[2.1875rem] bg-[#35DC64]">
+            <Button
+              icon={save}
+              className="w-[5.625rem] h-[2.1875rem] bg-[#35DC64]"
+              onClick={onSaveChanges}
+            >
               Salvar
             </Button>
           </div>
